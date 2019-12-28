@@ -34,8 +34,8 @@
                 </ul>
             {% else %}
                 <ul class="navbar-nav ml-auto mt-2">
-                    <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/register">Sign up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
                 </ul>
             {% endif %}
         </div>
@@ -44,17 +44,26 @@
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-3">short50.ly</h1>
-            <p class="lead">Your best URL friend.</p>
-            <p style="text-align: right"><strong>Shortening, branding and promoting your urls with our services</strong>
-            </p>
-            <span style="font-size: 60px; color: white;">
-                <i class="fas fa-chart-bar"></i>
-                <i class="fas fa-cogs"></i>
-                <i class="fas fa-cut"></i>
-                <i class="fas fa-magic"></i>
-                <i class="fas fa-sort-amount-up"></i>
-            </span>
+            <div class="row">
+                <div class="col-md-5 offset-1">
+                    <h1 class="display-4">short50.ly</h1>
+                    <p class="lead"><strong>Your best URL friend.</strong></p>
+                    <p class="lead"><strong>Get recognised, try it now...</strong></p>
+                    <span>
+                        <i class="fas fa-chart-bar"></i>
+                        <i class="fas fa-cogs"></i>
+                        <i class="fas fa-cut"></i>
+                        <i class="fas fa-magic"></i>
+                        <i class="fas fa-sort-amount-up"></i>
+                    </span>
+                </div>
+                <div class="col-md-3 offset-2">
+                    <p style="text-align:center">Shortening, branding and promoting your urls with our services Lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -68,10 +77,18 @@
 
     <div class="container-fluid">
         <div class="row">
-    {% block body%}
-    {% endblock %} {# Body Block #}
+            {% block body%}
+            {% endblock %} {# Body Block #}
         </div>
     </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <span class="text-muted">This project is made by Senat Selimoski <a href="https://github.com/senkaPro"><i class="fab fa-github"></i></a> for the cs50 course &copy; 2019</span>
+        </div>
+    </footer>
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
