@@ -15,16 +15,16 @@
     <div class="card-body px-lg-5 pt-0">
 
         <!-- Form -->
-        <form class="text-center" style="color: #757575;" action="#!">
+        <form class="text-center" style="color: #757575;" action="{{url_for('register')}}" method="post">
             <!-- E-mail -->
             <div class="md-form ">
-                <input type="email" id="materialRegisterFormEmail" class="form-control">
-                <label for="materialRegisterFormEmail">E-mail</label>
+                <input type="text" name="username" id="materialRegisterFormEmail" class="form-control">
+                <label for="materialRegisterFormEmail">Username</label>
             </div>
 
             <!-- Password -->
             <div class="md-form">
-                <input type="password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock">
+                <input type="password" name="password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock">
                 <label for="materialRegisterFormPassword">Password</label>
                 <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
                     At least 8 characters and 1 digit
@@ -32,7 +32,7 @@
             </div>
              <!-- Password Confirm -->
             <div class="md-form">
-                <input type="password" id="materialRegisterFormPassword1" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock">
+                <input type="password" name="password1" id="materialRegisterFormPassword1" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock">
                 <label for="materialRegisterFormPassword1">Confirm password</label>
                 <small id="materialRegisterFormPasswordHelpBlock1" class="form-text text-muted mb-4">
                     Confirm your password
@@ -57,7 +57,7 @@
             -->
 
             <!-- Sign up button -->
-            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
+            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign up</button>
 
             <!-- Social register
             <p>or sign up with:</p>
@@ -80,7 +80,7 @@
             <!-- Terms of service -->
             <p>By clicking
                 <em>Sign up</em> you agree to our
-                <a href="" target="_blank">terms of service</a>
+                <a href="{{url_for('terms')}}" target="_blank">terms of service</a>
 
         </form>
         <!-- Form -->

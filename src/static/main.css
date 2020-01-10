@@ -33,7 +33,8 @@
     color: #fff;
 }
 .jumbotron-fluid{
-    height:340px;
+    height:auto;
+    width:auto;
 }
 .jumbotron-fluid span{
     font-size: 50px;
@@ -74,4 +75,7 @@ body {
 }
 .text-muted a:hover{
     color: #000!important;
+}
+.navbar-nav{
+    margin-left:5rem;
 }
