@@ -45,7 +45,7 @@ html {
   min-height: 100%;
 }
 body {
-  margin-bottom: 60px; /* Margin bottom by footer height */
+  margin-bottom: 50px; /* Margin bottom by footer height */
 }
 .footer {
   position: absolute;
@@ -84,4 +84,10 @@ body {
 }
 .table{
     margin-top:8rem;
+}
+.center-link{
+    font-size: 4rem;
+    margin-top:3rem;
+    margin-bottom:3rem;
+    text-align: center;
 }

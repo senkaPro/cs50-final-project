@@ -23,6 +23,7 @@ def main():
 
 @app.route("/")
 def land_page():
+    session.clear()
     return render_template('index.html')
 
 @app.route("/home")
@@ -44,26 +45,14 @@ def random_shorten():
         url = request.form.get('url')
         if url[:4] != 'http':
             url = 'https://' + url
-        u = ShortUrl(link=url,user=session['username'])
-        u.make_short_code()
-        db.session.add(u)
+        scode = ShortUrl(link=url,user=session['username'])
+        scode.make_short_code()
+        db.session.add(scode)
         db.session.commit()
 
+        return redirect(url_for('home'))
+
     return redirect(url_for('home'))
-
-
-
-@app.route("/<router>", methods=['GET'])
-def router(router):
-    try:
-        code = str(router)
-        q = ShortUrl.query.filter_by(short_code=code).first()
-        if q is None:
-            q = ShortUrl.query.filter_by(custom_code=code).first()
-        print(q)
-    except HTTPException as e:
-        return e
-    return redirect(q.link, code=302)
 
 @app.route("/custom", methods=['GET', 'POST'])
 @login_required
@@ -73,13 +62,40 @@ def custom_shorten():
         custom_url = request.form.get('custom_url')
         if url[:4] != 'http':
             url = 'https://' + url
-        u = ShortUrl(link=url,user=session['username'])
-        u.custom_code = custom_url
-        db.session.add(u)
+        scode = ShortUrl(link=url,user=session['username'])
+        scode.custom_code = custom_url
+        q = ShortUrl.query.filter_by(custom_code=custom_url).first()
+        if q is not None:
+            flash("This custom url already exists")
+            return redirect(url_for('home'))
+        db.session.add(scode)
         db.session.commit()
 
+        return redirect(url_for('home'))
     return redirect(url_for('home'))
 
+
+@app.route("/<router>", methods=['GET'])
+def router(router):
+    try:
+        code = str(router)
+        q = ShortUrl.query.filter_by(short_code=code).first()
+        if q is None:
+            q = ShortUrl.query.filter_by(custom_code=code).first()
+    except HTTPException as e:
+        return e
+    return redirect(q.link, code=302)
+
+@app.route("/delete/<int:id>", methods=['GET'])
+@login_required
+def delete_url(id):
+    code_id = id
+    print(id)
+    q = ShortUrl.query.filter_by(id=code_id).first()
+    print(q)
+    db.session.delete(q)
+    db.session.commit()
+    return redirect(url_for('home'))
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -88,6 +104,9 @@ def register():
             username = request.form.get('username')
             password = request.form.get('password')
             password1 = request.form.get('password1')
+            if username == '' or password == '':
+                flash('Username and password can not be empty')
+                return redirect(url_for('register'))
             user = User.query.filter_by(username=username).first()
             if user is not None:
                 flash('Username already exist')
@@ -114,6 +133,9 @@ def register():
 def login():
     session.clear()
     if request.method == 'POST':
+        if request.form.get('username') == '' or request.form.get('password') == '':
+                flash("Please fill the empty fields")
+                return redirect(url_for('login'))
         try:
             user = User.query.filter_by(username=request.form.get('username')).first()
             if user is None:
@@ -130,8 +152,7 @@ def login():
         except HTTPException as e:
             flash(e)
             return e
-    else:
-        return render_template('login.html')
+    return render_template('login.html')
 
 @app.route("/logout")
 @login_required

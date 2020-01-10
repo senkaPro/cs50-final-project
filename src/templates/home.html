@@ -38,10 +38,10 @@
     <table class="table table-hover">
         <thead>
         <tr>
-          <th scope="col">#</th>
+
           <th scope="col">Your Short Links</th>
           <th scope="col">Original Links</th>
-          <th scope="col">#</th>
+          <th scope="col">Delete Link</th>
 
         </tr>
         </thead>
@@ -49,15 +49,13 @@
         {% for code in codes %}
         <tr>
         {% if code.short_code  %}
-          <th scope="row">{{code.id}}</th>
           <td><a href="/{{code.short_code}}" target="_blank">short50/{{code.short_code}}</a></td>
           <td>{{code.link}}</td>
-          <td><button class="btn btn-outline-primary">DELETE</button></td>
+          <td><a href="/delete/{{code.id}}" class="btn btn-outline-primary" role="button">DELETE</a></td>
         {% else %}
-          <th scope="row">{{code.id}}</th>
             <td><a href="/{{code.custom_code}}"target="_blank">short50/{{code.custom_code}}</a></td>
             <td>{{code.link}}</td>
-            <td><button class="btn btn-outline-primary">DELETE</button></td>
+            <td><a href="/delete/{{code.id}}" class="btn btn-outline-primary" role="button">DELETE</a></td>
           </tr>
         {%endif%}
         {% endfor %}
