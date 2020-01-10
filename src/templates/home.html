@@ -2,5 +2,62 @@
 {% block title %} Home - {{super()}}  {% endblock %}
 
 {% block body%}
-BODY BLOCK HERE
+<div class="container" id="links-inputs">
+    <div class="row">
+        <div class="col">
+            <form  action="{{url_for('random_shorten')}}"method="post" >
+            <div class="input-group mb-3">
+              <input type="text" name="url" class="form-control" placeholder="Your url you want to shorten" aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="submit">Random Shorten URL</button>
+              </div>
+            </div>
+            </form>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col">
+        <form action="{{url_for('custom_shorten')}}"method="post" >
+        <div class="input-group mb-3">
+          <input type="text" name="url" class="form-control" placeholder="Your url you want to shorten" aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <input type="text" name="custom_url"class="form-control" placeholder="Your Custom url">
+          <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="submit">Custom Shorten URL</button>
+          </div>
+        </div>
+        </form>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-8 offset-2">
+    {% if codes %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Link</th>
+          <th scope="col">Shorten Link</th>
+          <th scope="col">Custom Links</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for code in codes %}
+        <tr>
+          <th scope="row">{{code.id}}</th>
+          <td>{{code.link}}</td>
+          <td>{{code.short_code}}</td>
+          <td>{{code.custom_code}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+</div>
+</div>
+
 {% endblock %}

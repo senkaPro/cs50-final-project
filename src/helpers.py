@@ -1,6 +1,8 @@
+import random, string
+
 from flask import redirect, render_template, request, session
 from functools import wraps
-from models import db, User
+from models import User
 
 def login_required(f):
     """
@@ -15,3 +17,5 @@ def login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
+
+

@@ -28,9 +28,44 @@ def land_page():
 @app.route("/home")
 @login_required
 def home():
-    user = User.query.filter_by(username=session['username']).first()
-    print(user)
-    return render_template('home.html', user=user)
+    try:
+        user = User.query.filter_by(username=session['username']).first()
+        codes = user.links
+
+    except HTTPException as e:
+        return e
+
+    return render_template('home.html', user=user,codes=codes)
+
+@app.route("/shorten", methods=['GET', 'POST'])
+@login_required
+def random_shorten():
+    if request.method == "POST":
+        url = request.form.get('url')
+        if url[:4] != 'http':
+            url = 'https://' + url
+        u = ShortUrl(link=url,user=session['username'])
+        u.make_short_code()
+        db.session.add(u)
+        db.session.commit()
+
+    return redirect(url_for('home'))
+
+@app.route("/custom", methods=['GET', 'POST'])
+@login_required
+def custom_shorten():
+    if request.method == "POST":
+        url = request.form.get('url')
+        custom_url = request.form.get('custom_url')
+        if url[:4] != 'http':
+            url = 'https://' + url
+        u = ShortUrl(link=url,user=session['username'])
+        u.custom_code = custom_url
+        db.session.add(u)
+        db.session.commit()
+
+    return redirect(url_for('home'))
+
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -85,7 +120,10 @@ def login():
         return render_template('login.html')
 
 @app.route("/logout")
+@login_required
 def logout():
+    if not session:
+         return redirect(url_for('land_page'))
     user = User.query.filter_by(username=session['username']).first()
     user.authenticated = False
     db.session.add(user)
