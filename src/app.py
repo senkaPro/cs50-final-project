@@ -51,6 +51,20 @@ def random_shorten():
 
     return redirect(url_for('home'))
 
+
+
+@app.route("/<router>", methods=['GET'])
+def router(router):
+    try:
+        code = str(router)
+        q = ShortUrl.query.filter_by(short_code=code).first()
+        if q is None:
+            q = ShortUrl.query.filter_by(custom_code=code).first()
+        print(q)
+    except HTTPException as e:
+        return e
+    return redirect(q.link, code=302)
+
 @app.route("/custom", methods=['GET', 'POST'])
 @login_required
 def custom_shorten():

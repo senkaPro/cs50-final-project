@@ -39,19 +39,27 @@
         <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Link</th>
-          <th scope="col">Shorten Link</th>
-          <th scope="col">Custom Links</th>
+          <th scope="col">Your Short Links</th>
+          <th scope="col">Original Links</th>
+          <th scope="col">#</th>
+
         </tr>
         </thead>
         <tbody>
         {% for code in codes %}
         <tr>
+        {% if code.short_code  %}
           <th scope="row">{{code.id}}</th>
+          <td><a href="/{{code.short_code}}" target="_blank">short50/{{code.short_code}}</a></td>
           <td>{{code.link}}</td>
-          <td>{{code.short_code}}</td>
-          <td>{{code.custom_code}}</td>
-        </tr>
+          <td><button class="btn btn-outline-primary">DELETE</button></td>
+        {% else %}
+          <th scope="row">{{code.id}}</th>
+            <td><a href="/{{code.custom_code}}"target="_blank">short50/{{code.custom_code}}</a></td>
+            <td>{{code.link}}</td>
+            <td><button class="btn btn-outline-primary">DELETE</button></td>
+          </tr>
+        {%endif%}
         {% endfor %}
         </tbody>
     </table>
