@@ -3,7 +3,7 @@
 <br>
 
 <h1>Project name: short50.ly</h1>
-
+<p>To create database first need run python app.py and than proceed with the flask run</p>
 
 <p>This is a URL shortener platform somewhat like bitly, it is entirely made in python 
 using python's microframework Flask.</p>
